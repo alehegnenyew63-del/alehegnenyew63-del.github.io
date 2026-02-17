@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Projects</title>
+  <link rel="stylesheet" href="/admin/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Projects Admin</h1>
+    <p class="muted">Use this page to add or update projects. You will be asked for the admin API key at submit time — it is not stored.</p>
+
+    <form id="projectForm">
+      <label>Title<input name="title" required></label>
+      <label>Slug (unique, url-friendly)<input name="slug" required></label>
+      <label>Description<textarea name="description"></textarea></label>
+      <label>Project URL<input name="url" placeholder="/projects/example/" /></label>
+      <label>Repo URL<input name="repo" placeholder="https://github.com/you/repo" /></label>
+      <div class="actions"><button type="submit" class="btn">Save project</button></div>
+    </form>
+
+    <div id="status" aria-live="polite"></div>
+  </main>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

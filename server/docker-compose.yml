@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    image: portfolio-backend:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - DATABASE_FILE=/data/portfolio.db
+      - ADMIN_API_KEY=change_this_secure_key
+      - CORS_ORIGIN=https://alehegnenyew63-del.github.io
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
