@@ -44,4 +44,40 @@ document.addEventListener('DOMContentLoaded',()=>{
       window.location.href=`mailto:alehegnenyew4@gmail.com?subject=${subject}&body=${body}`;
     });
   }
+
+  // Fetch projects from backend (if available) and render into projects grid
+  (async function loadProjects(){
+    try{
+      const cfg = await fetch('/config.json').then(r=>r.json()).catch(()=>({}));
+      const backend = cfg.backend_url || '';
+      if(!backend) return;
+      const res = await fetch(backend + '/api/projects');
+      if(!res.ok) return;
+      const projects = await res.json();
+      const grid = document.getElementById('projectsGrid');
+      if(!grid) return;
+      // clear existing placeholder cards (keep first two if you like) — here we clear all and re-render
+      grid.innerHTML = '';
+      projects.forEach(p => {
+        const article = document.createElement('article');
+        article.className = 'card fade-up';
+        article.tabIndex = 0;
+        article.innerHTML = `
+          <div class="card-media" aria-hidden="true">
+            <svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" fill="#e6e9ee"><rect width="400" height="220" rx="8"/></svg>
+          </div>
+          <div class="card-body">
+            <h3><a href="${p.url || '#'}">${escapeHtml(p.title)}</a></h3>
+            <p>${escapeHtml(p.description || '')}</p>
+            <p class="card-links"><a href="${p.url || '#'}">Project page</a> · <a href="${p.repo || '#'}">Code</a></p>
+            <div class="meta">${new Date(p.created_at).toLocaleDateString()}</div>
+          </div>`;
+        grid.appendChild(article);
+      });
+      // reveal animations
+      setTimeout(()=>document.querySelectorAll('.fade-up').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'), i*80)), 50);
+    }catch(err){ console.error('loadProjects', err); }
+  })();
+
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
 });
