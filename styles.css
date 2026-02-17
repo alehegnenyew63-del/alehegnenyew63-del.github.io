@@ -8,6 +8,26 @@
   --container:1100px;
   --glass: rgba(255,255,255,0.6);
   --glass-border: rgba(255,255,255,0.8);
+  --media-bg: linear-gradient(180deg,#eef2ff,#fff);
+  --bg-gradient-start: #f7f8fb;
+  --bg-gradient-end: #eef2ff;
+}
+/* Dark theme overrides */
+:root[data-theme='dark']{
+  --bg:#071026;
+  --card:#071a2a;
+  --text:#e6f0ff;
+  --muted:#9fb6d8;
+  --accent:#6ee7b7;
+  --glass: rgba(12,20,30,0.45);
+  --glass-border: rgba(255,255,255,0.04);
+  --media-bg: linear-gradient(180deg,#063048,#0b2434);
+  --bg-gradient-start: #02101a;
+  --bg-gradient-end: #072033;
+}
+/* Game mode neon accent */
+:root[data-gamemode='on']{
+  --accent:#ff2d95;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -15,11 +35,20 @@ html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background:var(--bg);
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.04), transparent), linear-gradient(180deg,var(--bg-gradient-start),var(--bg-gradient-end));
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   line-height:1.6;
+  transition:background .4s ease,color .25s ease;
 }
+
+/* decorative animated blobs */
+body::before, body::after{
+  content:'';position:fixed;pointer-events:none;z-index:0;filter:blur(40px);opacity:.14;mix-blend-mode:screen;transition:opacity .3s ease
+}
+body::before{width:420px;height:420px;left:-80px;top:-80px;background:radial-gradient(circle at 30% 30%, rgba(37,99,235,0.18), transparent 40%), radial-gradient(circle at 70% 70%, rgba(99,102,241,0.08), transparent 40%);animation:blobMove 12s infinite linear}
+body::after{width:520px;height:520px;right:-120px;bottom:-120px;background:radial-gradient(circle at 20% 20%, rgba(34,197,94,0.1), transparent 30%), radial-gradient(circle at 80% 80%, rgba(99,102,241,0.06), transparent 30%);animation:blobMove 18s infinite linear reverse}
+@keyframes blobMove{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(18px) rotate(8deg)}100%{transform:translateY(0) rotate(0)}}
 
 .skip-link{position:fixed;left:12px;top:12px;background:var(--card);color:var(--accent);padding:8px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(2,6,23,0.08);z-index:999;transform:translateY(-8px);opacity:0;transition:opacity .18s,transform .18s}
 .skip-link:focus{transform:none;opacity:1}
@@ -31,13 +60,21 @@ body{
 .site-nav a:hover{color:var(--accent)}
 .nav-toggle{display:none;background:transparent;border:0;font-size:20px}
 .site-header{background:transparent}
+.header-controls{display:flex;align-items:center;gap:8px}
+.theme-toggle,.game-toggle{background:transparent;border:0;padding:8px;border-radius:8px;font-size:18px;cursor:pointer}
+.theme-toggle{color:var(--muted)}
+.theme-toggle:hover,.game-toggle:hover{transform:translateY(-2px)}
 .hero{padding:72px 0;text-align:center}
 .hero .lead{color:var(--muted);max-width:700px;margin:14px 0 24px}
 .hero-inner{display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap}
 .hero-media{flex:0 0 220px;display:flex;align-items:center;justify-content:center}
 .profile-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;box-shadow:0 8px 30px rgba(15,23,36,0.12);border:6px solid #fff}
 .hero-content{max-width:760px}
-.btn{display:inline-block;padding:10px 16px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none}
+
+.hero{position:relative;z-index:2}
+.hero::after{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:90%;height:100%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.02));}
+h1{font-size:2.1rem;line-height:1.05;margin-bottom:8px}
+.btn{display:inline-block;padding:12px 18px;background:var(--accent);color:#fff;border-radius:12px;text-decoration:none;font-weight:600;box-shadow:0 8px 30px rgba(37,99,235,0.08)}
 .btn{position:relative;overflow:hidden}
 .btn:after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;background:rgba(255,255,255,0.12);border-radius:50%;transform:translate(-50%,-50%);transition:width .4s ease,height .4s ease}
 .btn:active:after{width:220px;height:220px}
@@ -45,13 +82,16 @@ body{
 .section{padding:56px 0}
 h1,h2,h3{margin:0 0 12px}
 h2{font-size:1.5rem}
-.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:22px}
 .card{background:linear-gradient(180deg,rgba(255,255,255,0.85),var(--card));border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 40px rgba(2,6,23,0.08);display:flex;flex-direction:column;transition:transform .28s cubic-bezier(.2,.9,.2,1),box-shadow .28s}
 .card:hover{transform:translateY(-8px);box-shadow:0 18px 50px rgba(2,6,23,0.12)}
 .card:focus-within{outline:2px solid rgba(37,99,235,0.12)}
-.card-media{height:140px;background:linear-gradient(180deg,#eef2ff,#fff);display:flex;align-items:center;justify-content:center}
+.card-media{height:160px;background:var(--media-bg);display:flex;align-items:center;justify-content:center}
+.card-media img{display:block;border-radius:6px}
 .card-body{padding:16px}
 .card-links a{color:var(--accent);text-decoration:none}
+.card h3 a{color:var(--text);text-decoration:none}
+.card p{color:var(--muted)}
 .card .meta{font-size:13px;color:var(--muted);margin-top:8px}
 .contact-form{display:grid;gap:12px;max-width:600px}
 .contact-form label{display:flex;flex-direction:column;color:var(--muted);font-size:14px}
@@ -71,6 +111,13 @@ h2{font-size:1.5rem}
 /* subtle entrance animation */
 .fade-up{transform:translateY(10px);opacity:0;transition:opacity .5s ease,transform .5s ease}
 .fade-up.visible{transform:none;opacity:1}
+
+/* subtle neon glow when game mode enabled */
+:root[data-gamemode='on'] .card:hover{box-shadow:0 20px 60px rgba(255,45,149,0.12),0 0 18px rgba(255,45,149,0.06)}
+
+/* card tilt smoothing */
+.card{transform-style:preserve-3d}
+.card-inner-transform{transition:transform .18s ease}
 
 /* focus styles */
 a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(37,99,235,0.12);outline-offset:2px}
