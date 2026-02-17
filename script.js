@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   const toggle=document.querySelector('.nav-toggle');
   const nav=document.querySelector('.site-nav');
   if(toggle && nav){
-    toggle.addEventListener('click',()=>nav.classList.toggle('open'));
+     toggle.addEventListener('click',()=>{
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+     });
+     // close nav with Escape
+     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') nav.classList.remove('open'); });
   }
 
   // Set current year
@@ -80,4 +85,26 @@ document.addEventListener('DOMContentLoaded',()=>{
   })();
 
   function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
-});
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+  });
+
+  // Add small ripple effect for buttons
+  document.addEventListener('click', (e)=>{
+    const t = e.target.closest('.btn');
+    if(!t) return;
+    const rect = t.getBoundingClientRect();
+    const span = document.createElement('span');
+    span.style.position = 'absolute';
+    span.style.left = (e.clientX - rect.left) + 'px';
+    span.style.top = (e.clientY - rect.top) + 'px';
+    span.style.width = '10px';
+    span.style.height = '10px';
+    span.style.background = 'rgba(255,255,255,0.12)';
+    span.style.borderRadius = '50%';
+    span.style.pointerEvents = 'none';
+    span.style.transform = 'translate(-50%,-50%)';
+    span.style.transition = 'width .5s ease,height .5s ease,opacity .5s ease';
+    t.appendChild(span);
+    requestAnimationFrame(()=>{ span.style.width = '220px'; span.style.height = '220px'; span.style.opacity='0'; });
+    setTimeout(()=>span.remove(),500);
+  });
