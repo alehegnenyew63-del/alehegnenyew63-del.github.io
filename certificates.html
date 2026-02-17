@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Certificates — Alehegn Enyew Zewdie</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+      .cert-card{background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+      .cert-card img{width:100%;height:auto;border-radius:4px}
+      @media(max-width:900px){.cert-grid{grid-template-columns:repeat(2,1fr)}}
+      @media(max-width:640px){.cert-grid{grid-template-columns:1fr}}
+    </style>
+  </head>
+  <body>
+    <div class="container" style="padding:36px 20px;">
+      <a href="/" style="text-decoration:none;color:var(--accent);">← Back to home</a>
+      <h1>Certificates</h1>
+      <p>Below are your certificates. Replace the placeholder images with your real certificate files in <code>assets/certs/</code>.</p>
+      <div class="cert-grid">
+        <!-- Placeholders: replace cert1.jpg..cert9.jpg with your real files -->
+        <div class="cert-card"><a href="assets/certs/cert1.jpg" target="_blank"><img src="assets/certs/cert1.jpg" alt="Certificate 1"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert2.jpg" target="_blank"><img src="assets/certs/cert2.jpg" alt="Certificate 2"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert3.jpg" target="_blank"><img src="assets/certs/cert3.jpg" alt="Certificate 3"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert4.jpg" target="_blank"><img src="assets/certs/cert4.jpg" alt="Certificate 4"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert5.jpg" target="_blank"><img src="assets/certs/cert5.jpg" alt="Certificate 5"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert6.jpg" target="_blank"><img src="assets/certs/cert6.jpg" alt="Certificate 6"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert7.jpg" target="_blank"><img src="assets/certs/cert7.jpg" alt="Certificate 7"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert8.jpg" target="_blank"><img src="assets/certs/cert8.jpg" alt="Certificate 8"></a></div>
+        <div class="cert-card"><a href="assets/certs/cert9.jpg" target="_blank"><img src="assets/certs/cert9.jpg" alt="Certificate 9"></a></div>
+      </div>
+      <p style="margin-top:18px;color:var(--muted)">To add your real certificate images: save them into <code>assets/certs/</code> and name them <code>cert1.jpg</code> ... <code>cert9.jpg</code>. I can upload them if you upload the files here.</p>
+    </div>
+  </body>
+</html>
