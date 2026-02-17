@@ -35,3 +35,15 @@ Admin UI
 
 The repository contains a minimal admin UI at `/admin/index.html` served by the backend (if the `server/admin` folder is present). Use it to add or update projects. The page will prompt you for the `ADMIN_API_KEY` (from your `.env` or compose environment) and will send a secure `x-api-key` header.
 
+SMTP / Email forwarding
+
+To enable email forwarding for contact messages, set the following values in your `.env` or Docker Compose environment:
+
+- `SMTP_HOST` — your SMTP server host (e.g., smtp.gmail.com)
+- `SMTP_PORT` — optional port (default 587)
+- `SMTP_USER` — SMTP username (also used as the 'to' address for notifications)
+- `SMTP_PASS` — SMTP password
+- `SITE_OWNER` — optional display name used in confirmation emails
+
+When configured, the server will send the contact to `SMTP_USER` and optionally a short confirmation to the sender's email address.
+
