@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculator Demo — Alehegn</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .calc{max-width:320px;margin:24px auto;padding:16px;background:#fff;border-radius:12px;box-shadow:0 8px 28px rgba(15,23,36,0.06)}
+      .display{height:56px;background:#f3f4f6;border-radius:8px;padding:10px;font-size:20px;text-align:right}
+      .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+      .key{padding:12px;background:var(--card);border-radius:8px;text-align:center;cursor:pointer}
+      .key.op{background:var(--accent);color:#fff}
+    </style>
+  </head>
+  <body>
+    <div class="container" style="padding:40px 20px;">
+      <a href="/projects/calculator/" style="text-decoration:none;color:var(--accent);">← Back to calculator page</a>
+      <h1>Calculator Demo</h1>
+      <p>I wrote this simple web calculator to demonstrate the calculator logic as a web demo. It behaves like the Python CLI version but runs in your browser.</p>
+      <div class="calc" id="calculator">
+        <div class="display" id="display">0</div>
+        <div class="keys">
+          <div class="key" data-key="7">7</div>
+          <div class="key" data-key="8">8</div>
+          <div class="key" data-key="9">9</div>
+          <div class="key op" data-key="/">÷</div>
+
+          <div class="key" data-key="4">4</div>
+          <div class="key" data-key="5">5</div>
+          <div class="key" data-key="6">6</div>
+          <div class="key op" data-key="*">×</div>
+
+          <div class="key" data-key="1">1</div>
+          <div class="key" data-key="2">2</div>
+          <div class="key" data-key="3">3</div>
+          <div class="key op" data-key="-">−</div>
+
+          <div class="key" data-key="0">0</div>
+          <div class="key" data-key=".">.</div>
+          <div class="key" data-key="=">=</div>
+          <div class="key op" data-key="+">+</div>
+        </div>
+      </div>
+      <p style="margin-top:12px;color:var(--muted)">Tip: This web demo is a simple client-side demo. I can replace it with screenshots from the Python CLI or convert Python logic to JS to keep behavior identical.</p>
+    </div>
+
+    <script>
+      (function(){
+        const display = document.getElementById('display');
+        let current = '';
+        let last = '';
+        function update(){ display.textContent = current || last || '0'; }
+        document.querySelectorAll('.key').forEach(k=>k.addEventListener('click',()=>{
+          const key=k.getAttribute('data-key');
+          if(key==='='){
+            try{ current = String(eval(current || last)); last = current; current=''; }
+            catch(e){ current='Error' }
+          } else if('+-*/'.includes(key)){
+            current = (current||last) + key; last='';
+          } else {
+            current = (current||'') + key;
+          }
+          update();
+        }));
+      })();
+    </script>
+  </body>
+</html>

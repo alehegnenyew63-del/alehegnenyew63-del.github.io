@@ -12,15 +12,31 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Contact form: open mail client with fields encoded
   const form=document.getElementById('contactForm');
   if(form){
-    form.addEventListener('submit',(e)=>{
+    form.addEventListener('submit',async(e)=>{
       e.preventDefault();
       const data=new FormData(form);
       const name=data.get('name')||'';
       const email=data.get('email')||'';
       const message=data.get('message')||'';
+      // Try to load a Formspree endpoint from config.json. If configured, POST the form there.
+      try{
+        const cfg=await fetch('/config.json').then(r=>r.json());
+        const endpoint=cfg.formspree_endpoint||'';
+        if(endpoint){
+          // send as urlencoded form
+          const payload = new URLSearchParams();
+          payload.append('name',name);
+          payload.append('email',email);
+          payload.append('message',message);
+          const res = await fetch(endpoint,{method:'POST',body:payload,headers:{'Accept':'application/json'}});
+          if(res.ok){ alert('Message sent — thank you!'); form.reset(); return; }
+        }
+      }catch(err){ /* ignore and fallback */ }
+
+      // Fallback: open user's email client with mailto
       const subject=encodeURIComponent('Portfolio contact from '+name);
       const body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
-      window.location.href=`mailto:you@example.com?subject=${subject}&body=${body}`;
+      window.location.href=`mailto:alehegnenyew4@gmail.com?subject=${subject}&body=${body}`;
     });
   }
 });
