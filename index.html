@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Portfolio — Your Name</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="container header-inner">
+				<a class="logo" href="#">Alehegn Enyew Zewdie</a>
+				<button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+				<nav class="site-nav">
+					<a href="#about">About</a>
+					<a href="#projects">Projects</a>
+					<a href="#contact">Contact</a>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+			<section class="hero">
+				<div class="container hero-inner">
+					<div class="hero-media">
+						<img src="assets/profile.jpg" alt="Alehegn Enyew Zewdie" class="profile-photo" onerror="this.onerror=null;this.src='assets/profile.svg'" />
+					</div>
+					<div class="hero-content">
+						<h1>Hi, I'm Alehegn Enyew Zewdie.</h1>
+						<p class="lead">I'm a 23-year-old third-year Electrical & Computer Engineering student at AASTU, passionate about full-stack web development. I grew up in a rural area of Ethiopia in a farming family and completed high school at Rebugebeya Secondary and Preparatory School.</p>
+						<p><a class="btn" href="#projects">View Projects</a> <a class="btn ghost" href="#contact">Contact Me</a></p>
+					</div>
+				</div>
+			</section>
+
+			<section id="about" class="section container">
+				<h2>About</h2>
+				<p>I'm studying Electrical & Computer Engineering (3rd year) at AASTU and learning full-stack web development. As a beginner, I enjoy building small projects to practice HTML, CSS, and JavaScript — and I'm eager to learn frameworks, backend basics, and deployment.</p>
+				<p><strong>Background:</strong> Born and raised in a rural area of Ethiopia in a farming family. Completed high school at Rebugebeya Secondary and Preparatory School.</p>
+				<p><strong>Age:</strong> 23</p>
+			</section>
+
+			<section id="projects" class="section container">
+				<h2>Projects</h2>
+				<div class="projects-grid">
+					<article class="card">
+						<div class="card-media" aria-hidden="true">
+							<svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" fill="#e6e9ee"><rect width="400" height="220" rx="8"/></svg>
+						</div>
+						<div class="card-body">
+							<h3>Project One</h3>
+							<p>Short description of the project and key technologies used.</p>
+							<p class="card-links"><a href="#">Demo</a> · <a href="#">Code</a></p>
+						</div>
+					</article>
+
+					<article class="card">
+						<div class="card-media" aria-hidden="true">
+							<svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" fill="#e6e9ee"><rect width="400" height="220" rx="8"/></svg>
+						</div>
+						<div class="card-body">
+							<h3>Project Two</h3>
+							<p>Short description of the project and key technologies used.</p>
+							<p class="card-links"><a href="#">Demo</a> · <a href="#">Code</a></p>
+						</div>
+					</article>
+
+					<article class="card">
+						<div class="card-media" aria-hidden="true">
+							<svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" fill="#e6e9ee"><rect width="400" height="220" rx="8"/></svg>
+						</div>
+						<div class="card-body">
+							<h3>Project Three</h3>
+							<p>Short description of the project and key technologies used.</p>
+							<p class="card-links"><a href="#">Demo</a> · <a href="#">Code</a></p>
+						</div>
+					</article>
+				</div>
+			</section>
+
+			<section id="contact" class="section container">
+				<h2>Contact</h2>
+				<p>Want to work together? You can reach me via phone, Telegram, or social links below — or send a message using the form.</p>
+				<ul>
+					<li><strong>Phone:</strong> 0943257056</li>
+					<li><strong>Telegram:</strong> <a href="https://t.me/takeacare">@takeacare</a></li>
+					<li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@yagerie">@yagerie</a></li>
+					<li><strong>Email:</strong> <a href="mailto:alehegnenyew4@gmail.com">alehegnenyew4@gmail.com</a> (optional)</li>
+				</ul>
+				<form id="contactForm" class="contact-form">
+					<label>
+						Name
+						<input type="text" name="name" required />
+					</label>
+					<label>
+						Email
+						<input type="email" name="email" required />
+					</label>
+					<label>
+						Message
+						<textarea name="message" rows="5" required></textarea>
+					</label>
+					<div class="form-actions">
+						<button type="submit" class="btn">Send</button>
+					</div>
+				</form>
+			</section>
+		</main>
+
+		<footer class="site-footer">
+			<div class="container">
+				<p>© <span id="year"></span> Your Name — Built with HTML, CSS & JavaScript.</p>
+			</div>
+		</footer>
+
+		<script src="script.js" defer></script>
+	</body>
+</html>
