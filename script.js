@@ -21,9 +21,14 @@ document.addEventListener('DOMContentLoaded',()=>{
       // Try to load a Formspree endpoint from config.json. If configured, POST the form there.
       try{
         const cfg=await fetch('/config.json').then(r=>r.json());
+        // Prefer backend if configured
+        const backend = cfg.backend_url || '';
+        if(backend){
+          const res = await fetch(backend + '/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message})});
+          if(res.ok){ alert('Message sent — thank you!'); form.reset(); return; }
+        }
         const endpoint=cfg.formspree_endpoint||'';
         if(endpoint){
-          // send as urlencoded form
           const payload = new URLSearchParams();
           payload.append('name',name);
           payload.append('email',email);
@@ -31,7 +36,7 @@ document.addEventListener('DOMContentLoaded',()=>{
           const res = await fetch(endpoint,{method:'POST',body:payload,headers:{'Accept':'application/json'}});
           if(res.ok){ alert('Message sent — thank you!'); form.reset(); return; }
         }
-      }catch(err){ /* ignore and fallback */ }
+      }catch(err){ console.error(err); /* ignore and fallback */ }
 
       // Fallback: open user's email client with mailto
       const subject=encodeURIComponent('Portfolio contact from '+name);
